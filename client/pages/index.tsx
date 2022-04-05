@@ -18,6 +18,7 @@ const Home: NextPage = () => {
       </Head>
         <Header />
         <Main />
+        <h2>Rokas</h2>
     </div>
   )
 }

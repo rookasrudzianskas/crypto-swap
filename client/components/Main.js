@@ -78,6 +78,10 @@ const Main = () => {
                     Confirm
                 </div>
             </div>
+
+            {/*<Modal isOpen={!!router.query.loading} style={customStyles}>*/}
+            {/*    <TransactionLoader />*/}
+            {/*</Modal>*/}
         </div>
     );
 };
