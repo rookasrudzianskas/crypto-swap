@@ -38,6 +38,8 @@ const Header = () => {
                   userName,
                 }
                 `
+                // const clientRes = await client.fetch(query)
+
             })();
         }
     }, []);
