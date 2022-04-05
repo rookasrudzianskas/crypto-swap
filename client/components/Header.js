@@ -42,7 +42,9 @@ const Header = () => {
 
             })();
         }
-    }, []);
+
+        setUserName(`${currentAccount?.slice(0, 7)}...${currentAccount?.slice(35)}`);
+    }, [currentAccount]);
 
     return (
         <div className={style.wrapper}>
@@ -98,7 +100,7 @@ const Header = () => {
                 </div>
                 {currentAccount ? (
                     <div className={`${style.button} ${style.buttonPadding}`}>
-                        <div className={style.buttonTextContainer}>{'userName'}</div>
+                        <div className={style.buttonTextContainer}>{userName}</div>
                     </div>
                 ) : (
                     <div
