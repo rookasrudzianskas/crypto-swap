@@ -75,12 +75,12 @@ export const TransactionProvider = ({children}) => {
 
             await transactionHash.wait();
 
-            await saveTransaction(
-                transactionHash.hash,
-                amount,
-                connectedAccount,
-                addressTo,
-            )
+            // await saveTransaction(
+            //     transactionHash.hash,
+            //     amount,
+            //     connectedAccount,
+            //     addressTo,
+            // )
 
             setIsLoading(false)
 
