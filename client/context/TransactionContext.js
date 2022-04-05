@@ -98,12 +98,8 @@ export const TransactionProvider = ({children}) => {
         }
 
         const handleChange = (e, name) => {
-                    setFormData({
-                ...prevState, // then you call set hook, you get prevState
-                [name]: e.target.value,
-            })
+            setFormData(prevState => ({ ...prevState, [name]: e.target.value }))
         }
-    }
 
             const connectWallet = async (metamask = eth) => {
         try {
@@ -122,6 +118,7 @@ export const TransactionProvider = ({children}) => {
                 currentAccount,
                 connectWallet,
                 sendTransaction,
+                handleChange,
             }}
         >
             {children}
