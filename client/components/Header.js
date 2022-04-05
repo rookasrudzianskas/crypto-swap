@@ -77,13 +77,13 @@ const Header = () => {
                         <AiOutlineDown />
                     </div>
                 </div>
-                {currentAccount ? (
+                {true ? (
                     <div className={`${style.button} ${style.buttonPadding}`}>
-                        <div className={style.buttonTextContainer}>{userName}</div>
+                        <div className={style.buttonTextContainer}>{'userName'}</div>
                     </div>
                 ) : (
                     <div
-                        onClick={() => connectWallet()}
+                        // onClick={() => connectWallet()}
                         className={`${style.button} ${style.buttonPadding}`}
                     >
                         <div className={`${style.buttonAccent} ${style.buttonPadding}`}>
