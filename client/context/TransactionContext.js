@@ -12,6 +12,10 @@ export const TransactionProvider = ({children}) => {
     const [currentAccount, setCurrentAccount] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
+    useEffect(() => {
+        checkIfWalletIsConnected();
+    }, []);
+
     /**
      * Checks if MetaMask is installed and an account is connected
      * @param {*} metamask Injected MetaMask code from the browser

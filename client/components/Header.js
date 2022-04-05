@@ -98,7 +98,7 @@ const Header = () => {
                 </div>
                 {currentAccount ? (
                     <div className={`${style.button} ${style.buttonPadding}`}>
-                        <div className={style.buttonTextContainer}>{userName}</div>
+                        <div className={style.buttonTextContainer}>{'userName'}</div>
                     </div>
                 ) : (
                     <div
