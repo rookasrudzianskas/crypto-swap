@@ -97,6 +97,14 @@ export const TransactionProvider = ({children}) => {
             throw new Error('No ethereum object.')
         }
 
+        const handleChange = (e, name) => {
+                    setFormData({
+                ...prevState, // then you call set hook, you get prevState
+                [name]: e.target.value,
+            })
+        }
+    }
+
             const connectWallet = async (metamask = eth) => {
         try {
             if(!metamask) return alert('Please install MetaMask');
