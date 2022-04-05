@@ -8,7 +8,7 @@ if(typeof window !== 'undefined') {
     eth = window.ethereum
 }
 
-const TransactionProvider = ({children}) => {
+export const TransactionProvider = ({children}) => {
     const [currentAccount, setCurrentAccount] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -22,6 +22,17 @@ const TransactionProvider = ({children}) => {
             throw new Error('No ethereum object.')
         }
     }
+
+    return (
+        <TransactionContext.Provider
+            value={{
+                currentAccount,
+                connectWallet,
+            }}
+        >
+            {children}
+        </TransactionContext.Provider>
+    )
 
 }
 
