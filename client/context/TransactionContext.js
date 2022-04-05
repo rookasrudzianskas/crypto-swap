@@ -47,8 +47,8 @@ export const TransactionProvider = ({children}) => {
     ) => {
         try {
             if (!metamask) return alert('Please install metamask ')
-            const { addressTo, amount } = formData
-            const transactionContract = getEthereumContract()
+            const {addressTo, amount} = formData
+            const transactionContract = getEthereumContract() // todo
 
             const parsedAmount = ethers.utils.parseEther(amount)
 
@@ -62,9 +62,35 @@ export const TransactionProvider = ({children}) => {
                         value: parsedAmount._hex,
                     },
                 ],
-            })
+            });
 
-    const connectWallet = async (metamask = eth) => {
+            const transactionHash = await transactionContract.publishTransaction(
+                addressTo,
+                parsedAmount,
+                `Transferring ETH ${parsedAmount} to ${addressTo}`,
+                'TRANSFER',
+            )
+
+            setIsLoading(true);
+
+            await transactionHash.wait();
+
+            await saveTransaction(
+                transactionHash.hash,
+                amount,
+                connectedAccount,
+                addressTo,
+            )
+
+            setIsLoading(false)
+
+
+        } catch (error) {
+            console.error(error)
+            throw new Error('No ethereum object.')
+        }
+
+            const connectWallet = async (metamask = eth) => {
         try {
             if(!metamask) return alert('Please install MetaMask');
             const accounts = await metamask.request({method: 'eth_requestAccounts'});
