@@ -4,6 +4,7 @@ import { RiSettings3Fill } from 'react-icons/ri'
 import { AiOutlineDown } from 'react-icons/ai'
 import ethLogo from '../assets/eth.png'
 import { useContext } from 'react'
+import {TransactionContext} from "../context/TransactionContext";
 
 const style = {
     wrapper: `w-screen flex items-center justify-center mt-14`,
@@ -35,7 +36,7 @@ const customStyles = {
     },
 }
 
-const Main = () => {
+const Main = ({formData, handleChange, sendTransaction} = useContext(TransactionContext)) => {
     return (
         <div className={style.wrapper}>
             <div className={style.content}>
