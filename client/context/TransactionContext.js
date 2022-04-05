@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useRouter} from "next/router";
 
 export const TransactionContext = React.createContext()
 
@@ -11,6 +12,12 @@ if(typeof window !== 'undefined') {
 export const TransactionProvider = ({children}) => {
     const [currentAccount, setCurrentAccount] = useState();
     const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter()
+    const [formData, setFormData] = useState({
+        addressTo: '',
+        amount: '',
+    })
 
     useEffect(() => {
         checkIfWalletIsConnected();
@@ -106,6 +113,7 @@ export const TransactionProvider = ({children}) => {
             value={{
                 currentAccount,
                 connectWallet,
+                sendTransaction,
             }}
         >
             {children}
