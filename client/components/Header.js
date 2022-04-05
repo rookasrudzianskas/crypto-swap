@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { FiArrowUpRight } from 'react-icons/fi'
@@ -6,6 +6,7 @@ import { AiOutlineDown } from 'react-icons/ai'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import ethLogo from '../assets/eth.png'
 import uniswapLogo from '../assets/uniswap.png';
+import {TransactionContext} from "../context/TransactionContext";
 
 
 const style = {
@@ -25,6 +26,22 @@ const style = {
 
 const Header = () => {
     const [selectedNav, setSelectedNav] = useState('swap');
+    const [userName, setUserName] = useState()
+    const { connectWallet, currentAccount } = useContext(TransactionContext);
+    // console.log(connectWallet, currentAccount)
+
+    useEffect(() => {
+        if(currentAccount) {
+            ;(async () => {
+                const query = `
+                *[_type=="users" && _id == "${currentAccount}"] {
+                  userName,
+                }
+                `
+            })();
+        }
+    }, []);
+
     return (
         <div className={style.wrapper}>
             <div className={style.headerLogo}>
@@ -77,13 +94,13 @@ const Header = () => {
                         <AiOutlineDown />
                     </div>
                 </div>
-                {true ? (
+                {currentAccount ? (
                     <div className={`${style.button} ${style.buttonPadding}`}>
-                        <div className={style.buttonTextContainer}>{'userName'}</div>
+                        <div className={style.buttonTextContainer}>{userName}</div>
                     </div>
                 ) : (
                     <div
-                        // onClick={() => connectWallet()}
+                        onClick={() => connectWallet()}
                         className={`${style.button} ${style.buttonPadding}`}
                     >
                         <div className={`${style.buttonAccent} ${style.buttonPadding}`}>
