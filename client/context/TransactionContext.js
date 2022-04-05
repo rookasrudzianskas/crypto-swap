@@ -36,6 +36,34 @@ export const TransactionProvider = ({children}) => {
         }
     }
 
+    /**
+     * Executes a transaction
+     * @param {*} metamask Injected MetaMask code from the browser
+     * @param connectedAccount
+     */
+    const sendTransaction = async (
+        metamask = eth,
+        connectedAccount = currentAccount,
+    ) => {
+        try {
+            if (!metamask) return alert('Please install metamask ')
+            const { addressTo, amount } = formData
+            const transactionContract = getEthereumContract()
+
+            const parsedAmount = ethers.utils.parseEther(amount)
+
+            await metamask.request({
+                method: 'eth_sendTransaction',
+                params: [
+                    {
+                        from: connectedAccount,
+                        to: addressTo,
+                        gas: '0x7EF40', // 520000 Gwei
+                        value: parsedAmount._hex,
+                    },
+                ],
+            })
+
     const connectWallet = async (metamask = eth) => {
         try {
             if(!metamask) return alert('Please install MetaMask');
