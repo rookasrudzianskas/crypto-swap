@@ -175,6 +175,8 @@ export const TransactionProvider = ({children}) => {
     useEffect(() =>{
         if(isLoading) {
             router.push(`/?loading=${currentAccount}`);
+        } else {
+            router.push('/');
         }
     }, [isLoading]);
 
