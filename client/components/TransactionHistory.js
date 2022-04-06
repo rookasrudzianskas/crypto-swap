@@ -33,10 +33,44 @@ const TransactionHistory = () => {
                 setTransactionHistory(clientRes[0].transactionList);
             }
         })();
+
     }, [isLoading, currentAccount])
     return (
-        <div>
-
+        <div className={style.wrapper}>
+            <div>
+                {transactionHistory &&
+                    transactionHistory?.map((transaction, index) => (
+                        <div className={style.txHistoryItem} key={index}>
+                            <div className={style.txDetails}>
+                                <Image src={ethLogo} height={20} width={15} alt='eth' />
+                                {transaction.amount} Ξ sent to{' '}
+                                <span className={style.toAddress}>
+                                    {transaction?.toAddress.substring(0, 6)}...
+                </span>
+                            </div>{' '}
+                            on{' '}
+                            <div className={style.txTimestamp}>
+                                {new Date(transaction.timestamp).toLocaleString('en-US', {
+                                    timeZone: 'PST',
+                                    hour12: true,
+                                    timeStyle: 'short',
+                                    dateStyle: 'long',
+                                })}
+                            </div>
+                            <div className={style.etherscanLink}>
+                                <a
+                                    href={`https://rinkeby.etherscan.io/tx/${transaction?.txHash}`}
+                                    target='_blank'
+                                    rel='noreferrer'
+                                    className={style?.etherscanLink}
+                                >
+                                    View on Etherscan
+                                    <FiArrowUpRight />
+                                </a>
+                            </div>
+                        </div>
+                    ))}
+            </div>
         </div>
     );
 };
