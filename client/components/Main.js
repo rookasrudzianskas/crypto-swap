@@ -6,6 +6,9 @@ import ethLogo from '../assets/eth.png'
 import { useContext } from 'react'
 import {TransactionContext} from "../context/TransactionContext";
 import {useRouter} from "next/router";
+import Modal from 'react-modal';
+
+Modal.setAppElement('#__next');
 
 const style = {
     wrapper: `w-screen flex items-center justify-center mt-14`,
