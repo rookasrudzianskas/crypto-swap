@@ -45,7 +45,7 @@ export const TransactionProvider = ({children}) => {
             const userDoc = {
                 _type: 'users',
                 _id: currentAccount,
-                userName: 'Unnamed',
+                userName: 'Unnamed 🙂',
                 address: currentAccount,
             }
 
@@ -191,6 +191,7 @@ export const TransactionProvider = ({children}) => {
                     sendTransaction,
                     handleChange,
                     formData,
+                    isLoading,
                 }}
             >
                 {children}
