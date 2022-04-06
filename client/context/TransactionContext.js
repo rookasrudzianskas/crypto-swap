@@ -171,6 +171,13 @@ export const TransactionProvider = ({children}) => {
         return
     }
 
+    // trigger the loading modal
+    useEffect(() =>{
+        if(isLoading) {
+            router.push(`/?loading=${currentAccount}`);
+        }
+    }, [isLoading]);
+
 
     const connectWallet = async (metamask = eth) => {
             try {

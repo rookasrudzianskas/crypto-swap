@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Header from '../components/Header';
 import Main from '../components/Main';
+import TransactionHistory from '../components/TransactionHistory';
 
 
 const style = {
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
       </Head>
         <Header />
         <Main />
-        <h2>Rokas</h2>
+        <TransactionHistory />
     </div>
   )
 }
