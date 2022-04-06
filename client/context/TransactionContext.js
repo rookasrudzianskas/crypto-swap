@@ -13,7 +13,7 @@ if(typeof window !== 'undefined') {
 }
 
 const getEthereumContract = () => {
-    const provider = new ethers.providers.Web3Provider(ethereum)
+    const provider = new ethers.providers.Web3Provider(eth)
     const signer = provider.getSigner()
     const transactionContract = new ethers.Contract(
         contractAddress,
@@ -69,8 +69,8 @@ export const TransactionProvider = ({children}) => {
     ) => {
         try {
             if (!metamask) return alert('Please install metamask ')
-            const {addressTo, amount} = formData
-            const transactionContract = getEthereumContract() // todo
+            const { addressTo, amount } = formData
+            const transactionContract = getEthereumContract()
 
             const parsedAmount = ethers.utils.parseEther(amount)
 
@@ -84,7 +84,7 @@ export const TransactionProvider = ({children}) => {
                         value: parsedAmount._hex,
                     },
                 ],
-            });
+            })
 
             const transactionHash = await transactionContract.publishTransaction(
                 addressTo,
@@ -93,9 +93,9 @@ export const TransactionProvider = ({children}) => {
                 'TRANSFER',
             )
 
-            setIsLoading(true);
+            setIsLoading(true)
 
-            await transactionHash.wait();
+            await transactionHash.wait()
 
             // await saveTransaction(
             //     transactionHash.hash,
@@ -105,13 +105,11 @@ export const TransactionProvider = ({children}) => {
             // )
 
             setIsLoading(false)
-
-
         } catch (error) {
-            console.error(error)
-            throw new Error('No ethereum object.')
+            console.log(error, "🔥")
         }
     }
+
 
         const handleChange = (e, name) => {
             setFormData(prevState => ({...prevState, [name]: e.target.value}))
