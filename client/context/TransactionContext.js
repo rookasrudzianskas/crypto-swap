@@ -131,8 +131,18 @@ export const TransactionProvider = ({children}) => {
                 txHash: txHash,
                 amount: parseFloat(amount),
             }
-
             await client.createIfNotExists(txDoc);
+
+            await client.patch(currentAccount).setIfMissing({ transactions: []}).insert('after', 'transactions[-1]', [
+                {
+                  _key: txHash,
+                  _ref: txHash,
+                  _type: 'reference',
+                },
+            ])
+                .commit();
+
+            return
         }
 
         const connectWallet = async (metamask = eth) => {
