@@ -39,6 +39,20 @@ export const TransactionProvider = ({children}) => {
         checkIfWalletIsConnected();
     }, []);
 
+    useEffect(() => {
+        if (!currentAccount) return
+            ;(async () => {
+            const userDoc = {
+                _type: 'users',
+                _id: currentAccount,
+                userName: 'Unnamed',
+                address: currentAccount,
+            }
+
+            await client.createIfNotExists(userDoc)
+        })();
+    }, [currentAccount]);
+
     /**
      * Checks if MetaMask is installed and an account is connected
      * @param {*} metamask Injected MetaMask code from the browser
