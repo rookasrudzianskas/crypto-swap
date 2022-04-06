@@ -97,9 +97,9 @@ const Main = () => {
                 </div>
             </div>
 
-            {/*<Modal isOpen={!!router.query.loading} style={customStyles}>*/}
-            {/*    <TransactionLoader />*/}
-            {/*</Modal>*/}
+            <Modal isOpen={!!router.query.loading} style={customStyles}>
+                <TransactionLoader />
+            </Modal>
         </div>
     );
 };
