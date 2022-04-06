@@ -116,36 +116,49 @@ export const TransactionProvider = ({children}) => {
             setFormData(prevState => ({...prevState, [name]: e.target.value}))
         }
 
-        const saveTransaction = async (
-            txHash,
-            amount,
-            fromAddress = currentAccount,
-            toAddress
-        ) => {
-            const txDoc = {
-                _type: "transactions",
-                _id: txHash,
-                fromAddress: fromAddress,
-                toAddress: toAddress,
-                timestamp: new Date(Date.now()).toISOString(),
-                txHash: txHash,
-                amount: parseFloat(amount),
-            }
-            await client.createIfNotExists(txDoc);
-
-            await client.patch(currentAccount).setIfMissing({ transactions: []}).insert('after', 'transactions[-1]', [
-                {
-                  _key: txHash,
-                  _ref: txHash,
-                  _type: 'reference',
-                },
-            ])
-                .commit();
-
-            return
+    /**
+     * Saves transaction to Sanity DB
+     * @param {string} txHash Transaction hash
+     * @param {number} amount Amount of ETH that was sent
+     * @param {string} fromAddress Sender address
+     * @param {string} toAddress Recipient address
+     * @returns null
+     */
+    const saveTransaction = async (
+        txHash,
+        amount,
+        fromAddress = currentAccount,
+        toAddress,
+    ) => {
+        const txDoc = {
+            _type: 'transactions',
+            _id: txHash,
+            fromAddress: fromAddress,
+            toAddress: toAddress,
+            timestamp: new Date(Date.now()).toISOString(),
+            txHash: txHash,
+            amount: parseFloat(amount),
         }
 
-        const connectWallet = async (metamask = eth) => {
+        await client.createIfNotExists(txDoc)
+
+        await client
+            .patch(currentAccount)
+            .setIfMissing({ transactions: [] })
+            .insert('after', 'transactions[-1]', [
+                {
+                    _key: txHash,
+                    _ref: txHash,
+                    _type: 'reference',
+                },
+            ])
+            .commit()
+
+        return
+    }
+
+
+    const connectWallet = async (metamask = eth) => {
             try {
                 if (!metamask) return alert('Please install MetaMask');
                 const accounts = await metamask.request({method: 'eth_requestAccounts'});
